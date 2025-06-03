@@ -189,8 +189,13 @@ public class GamePanel extends JPanel implements ActionListener {
             previous = segment;
         }
 
+        // If we've eaten food, add one more segment at the tail
+        if (newSnakeBody.size() < bodyParts) {
+            newSnakeBody.offer(new Point(previous.x, previous.y));
+        }
+
         snakeBody.clear();
-        while (!newSnakeBody.isEmpty() && snakeBody.size() < bodyParts) {
+        while (!newSnakeBody.isEmpty()) {
             snakeBody.offer(newSnakeBody.poll());
         }
     }
@@ -297,7 +302,7 @@ public class GamePanel extends JPanel implements ActionListener {
         resetButton.setFont(new Font("SansSerif", Font.BOLD, 24));
         resetButton.setForeground(Color.WHITE);
         resetButton.setBackground(new Color(0, 102, 204));
-        resetButton.setBounds((SCREEN_WIDTH - 200) / 2, SCREEN_HEIGHT / 2 + 110, 200, 50);
+        resetButton.setBounds((SCREEN_WIDTH - 250) / 2, SCREEN_HEIGHT / 2 + 110, 250, 50);
         resetButton.addActionListener(e -> scoreStack.resetHighScores());
         add(resetButton);
     }
